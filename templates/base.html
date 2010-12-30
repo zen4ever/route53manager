@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Route 53 Manager</title>
+  </head>
+  <body>
+    <h1>Route 53 Manager</h1>
+    <div class="toolbar">
+      <ul>
+        {% if session.twitter_user %}
+        <li>Hello, {{ session.twitter_user }}</li>
+        {% else %}
+        <li><a href="/login">Login</a></li>
+        {% endif %}
+      </ul>
+    </div>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="flashes">
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    {% block body %}
+    {% endblock %}
+  </body>
+</html>
