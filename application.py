@@ -30,6 +30,13 @@ def get_twitter_token():
 def index():
     return render_template('index.html')
 
+@app.route('/logout')
+def logout():
+    session.pop('twitter_oauthtok', None)
+    session.pop('twitter_user', None)
+    session.pop('twitter_token', None)
+    return redirect(url_for('index'))
+
 
 @app.route('/login')
 def login():

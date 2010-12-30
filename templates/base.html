@@ -9,6 +9,7 @@
       <ul>
         {% if session.twitter_user %}
         <li>Hello, {{ session.twitter_user }}</li>
+        <li><a href="/logout">Logout</a></li>
         {% else %}
         <li><a href="/login">Login</a></li>
         {% endif %}
