@@ -1,2 +1,2 @@
 *.pyc
-local_settings.py
+application.cfg

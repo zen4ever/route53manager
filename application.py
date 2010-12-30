@@ -1,15 +1,15 @@
 from flask import Flask, url_for, render_template
+
+from flaskext.sqlalchemy import SQLAlchemy
+
+
 app = Flask(__name__)
+app.config.from_pyfile('application.cfg')
+db = SQLAlchemy(app)
 
 @app.route('/')
 def index():
     return render_template('index.html') 
 
-try:
-    from local_settings import SECRET_KEY
-    app.secret_key = SECRET_KEY
-except ImportError:
-    pass
-
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
