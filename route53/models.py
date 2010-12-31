@@ -41,3 +41,6 @@ class AWSCredential(db.Model):
         self.access_key_id = access_key_id
         self.secret_access_key = secret_access_key
         self.user_id = user_id
+
+    def __repr__(self):
+        return "<AWSCredentials %r>" % self.nickname
