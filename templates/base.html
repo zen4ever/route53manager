@@ -4,14 +4,14 @@
     <title>Route 53 Manager</title>
   </head>
   <body>
-    <h1>Route 53 Manager</h1>
+    <h1><a href="{{ url_for('index') }}">Route 53 Manager</a></h1>
     <div class="toolbar">
       <ul>
-        {% if session.twitter_user %}
-        <li>Hello, {{ session.twitter_user }}</li>
-        <li><a href="/logout">Logout</a></li>
+        {% if g.identity.name != 'anon' %}
+        <li>Hello, {{ g.identity.name }}</li>
+        <li><a href="{{ url_for('logout') }}">Logout</a></li>
         {% else %}
-        <li><a href="/login">Login</a></li>
+        <li><a href="{{ url_for('login') }}">Login</a></li>
         {% endif %}
       </ul>
     </div>
