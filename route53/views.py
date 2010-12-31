@@ -30,7 +30,7 @@ def login():
     else:
         flash(u'You are already logged in with Twitter as %s'
                 % g.identity.name)
-        return redirect(url_for('index'))
+        return redirect(request.args.get('next') or url_for('index'))
 
 
 @app.route('/oauth-authorized')
