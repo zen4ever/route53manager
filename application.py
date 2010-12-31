@@ -97,7 +97,6 @@ def oauth_authorized(resp):
         flash(u'You denied the request to sign in.')
         return redirect(next_url)
 
-
     username = resp['screen_name']
 
     user = User.query.filter_by(username=username).first()
