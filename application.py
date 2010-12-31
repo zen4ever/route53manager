@@ -23,8 +23,10 @@ twitter = oauth.remote_app('twitter',
 
 @twitter.tokengetter
 def get_twitter_token():
-        return session.get('twitter_token')
+    return session.get('twitter_token')
 
+def is_authenticated():
+    return 'twitter_user' in session
 
 @app.route('/')
 def index():
@@ -40,8 +42,12 @@ def logout():
 
 @app.route('/login')
 def login():
-    return twitter.authorize(callback=url_for('oauth_authorized',
-        next=request.args.get('next') or request.referrer or None))
+    if not is_authenticated():
+        return twitter.authorize(callback=url_for('oauth_authorized',
+            next=request.args.get('next') or request.referrer or None))
+    else:
+        flash(u'You are already logged in with Twitter as %s' % session['twitter_user'])
+        return redirect(url_for('index'))
 
 
 @app.route('/oauth-authorized')
