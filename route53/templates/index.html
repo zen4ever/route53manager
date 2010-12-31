@@ -2,9 +2,11 @@
 
 {% block body %}
 {% if g.identity.name != 'anon' %}
-  {% if len(g.identity.user.credentials) == 0 %}
+  {% if g.identity.user.credentials|length == 0 %}
+  <p>You need to <a href="{{ url_for('new_credentials') }}">Add credentials</a></p>
   {% else %}
-  <p><a href="{{ url_for('new_credentials') }}">Add credentials</a></p>
+  <p><a href="#">{{ (g.identity.user.credentials|first).nickname }}</a></p>
+  <p><a href="{{ url_for('credentials_list') }}">All credentials</a></p>
   {% endif %}
 {% endif %}
 {% endblock %}
