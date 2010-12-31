@@ -20,8 +20,8 @@ class User(db.Model):
         self.oauth_token = oauth_token
         self.oauth_token_secret = oauth_token_secret
 
-    def is_authenticated(self):
-        return True
+    def first_credentials(self):
+        return self.credentials[0]
 
     def __repr__(self):
         return "<User %r>" % self.username

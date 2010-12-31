@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block body %}
+<h2>Add zone</h2>
+<form action="{{ url_for('zones_new', cred_id=cred_id) }}" method="post" accept-charset="utf-8">
+  {{ form.csrf_token }}
+  {% from "_formhelpers.html" import render_field %}
+  <dl>
+    {{ render_field(form.name) }}
+    {{ render_field(form.comment) }}
+  </dl>
+  <p>
+    <button type="submit">Add</button>
+  </p>
+</form>
+{% endblock %}

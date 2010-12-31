@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block body %}
+<p><a href="{{ url_for('zones_new', cred_id=cred_id) }}">Add a zone</a></p>
+<ul>
+  {% for zone in zones %}
+  <li><a href="#">{{ zone['Name'] }}</a></li>
+  {% endfor %}
+</ul>
+{% endblock %}
