@@ -2,6 +2,9 @@
 
 {% block body %}
 {% if g.identity.name != 'anon' %}
-<p><a href="{{ url_for('new_credentials') }}">Add credentials</a></p>
+  {% if len(g.identity.user.credentials) == 0 %}
+  {% else %}
+  <p><a href="{{ url_for('new_credentials') }}">Add credentials</a></p>
+  {% endif %}
 {% endif %}
 {% endblock %}
