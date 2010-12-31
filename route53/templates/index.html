@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
 {% block body %}
-<p>Homepage</p>
+{% if g.identity.name != 'anon' %}
+<p><a href="{{ url_for('new_credentials') }}">Add credentials</a></p>
+{% endif %}
 {% endblock %}

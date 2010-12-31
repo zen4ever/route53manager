@@ -7,11 +7,13 @@ db = SQLAlchemy(app)
 # Models
 
 class User(db.Model):
-    __tablename__ = 'users'
+    __tablename__ = "users"
+
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(255), unique=True)
     oauth_token = db.Column(db.String(255))
     oauth_token_secret = db.Column(db.String(255))
+    credentials = db.relation("AWSCredential", backref="user")
 
     def __init__(self, username, oauth_token, oauth_token_secret):
         self.username = username
@@ -22,4 +24,20 @@ class User(db.Model):
         return True
 
     def __repr__(self):
-        return '<User %r>' % self.username
+        return "<User %r>" % self.username
+
+
+class AWSCredential(db.Model):
+    __tablename__ = "aws_credentials"
+
+    id = db.Column(db.Integer, primary_key=True)
+    nickname = db.Column(db.String(255))
+    access_key_id = db.Column(db.String(255))
+    secret_access_key = db.Column(db.String(255))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+
+    def __init__(self, nickname, access_key_id, secret_access_key, user_id):
+        self.nickname = nickname
+        self.access_key_id = access_key_id
+        self.secret_access_key = secret_access_key
+        self.user_id = user_id
