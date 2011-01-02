@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block body %}
+<h2>Hosted Zone "{{ zone['Name'] }}"</h2>
+<pre>
+  {{ records|xmlpretty }}
+</pre>
+{% endblock %}

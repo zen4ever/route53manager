@@ -71,10 +71,27 @@ def zones_detail(cred_id, zone_id):
     resp = conn.get_hosted_zone(zone_id)
     zone = resp['GetHostedZoneResponse']['HostedZone']
     nameservers = resp['GetHostedZoneResponse']['DelegationSet']['NameServers']
-    print zone
 
     return render_template('zones/detail.html',
             credential=sc,
             zone_id=zone_id,
             zone=zone,
             nameservers=nameservers)
+
+
+@zones.route('/<int:cred_id>/<zone_id>/records')
+@login_required
+def zones_records(cred_id, zone_id):
+    from route53.models import AWSCredential
+    sc = AWSCredential.query.filter_by(id=cred_id, user_id=g.identity.user.id).first_or_404()
+    conn = sc.get_connection()
+    resp = conn.get_hosted_zone(zone_id)
+    zone = resp['GetHostedZoneResponse']['HostedZone']
+
+    records = conn.get_all_rrsets(zone_id)
+
+    return render_template('zones/records.html',
+            credential=sc,
+            zone_id=zone_id,
+            zone=zone,
+            records=records)
