@@ -89,7 +89,7 @@ body.bp .heading { display: inline; float: left; margin-right: 0; width: 910px; 
 * html body.bp .heading { overflow-x: hidden; }
 body.bp .heading h1 { display: inline; float: left; margin-right: 10px; width: 310px; }
 * html body.bp .heading h1 { overflow-x: hidden; }
-body.bp .heading h1 a { text-decoration: none; color: #222222; }
+body.bp .heading h1 a { text-decoration: none; color: #333333; }
 body.bp .heading h1 a:hover { text-decoration: underline; }
 body.bp .heading .toolbar { display: inline; float: left; margin-right: 0; width: 590px; }
 * html body.bp .heading .toolbar { overflow-x: hidden; }
@@ -99,7 +99,10 @@ body.bp .heading .toolbar ul li:first-child, body.bp .heading .toolbar ul li.fir
 body.bp .heading .toolbar ul li:last-child, body.bp .heading .toolbar ul li.last { padding-right: 0; }
 body.bp .messages { display: inline; float: left; margin-right: 10px; width: 950px; }
 * html body.bp .messages { overflow-x: hidden; }
-body.bp .body { display: inline; float: left; margin-right: 10px; width: 950px; }
+body.bp .messages .flashes { padding-left: 20px; }
+body.bp .messages .flashes li { list-style-type: none; padding: 0.8em; margin-bottom: 1em; border: 2px solid #dddddd; background: #fff6bf; color: #514721; border-color: #ffd324; }
+body.bp .messages .flashes li a { color: #514721; }
+body.bp .body { padding: 0 20px; display: inline; float: left; margin-right: 10px; width: 910px; }
 * html body.bp .body { overflow-x: hidden; }
 
 form.bp label { font-weight: bold; }

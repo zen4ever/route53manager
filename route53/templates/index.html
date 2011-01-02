@@ -2,11 +2,15 @@
 
 {% block body %}
 {% if g.identity.name != 'anon' %}
+  <h2>AWS Credentials</h2>
   {% if g.identity.user.credentials|length == 0 %}
   <p>You need to <a href="{{ url_for('credentials.new_credentials') }}">Add credentials</a></p>
   {% else %}
-  <p><a href="{{ url_for('zones.zones_list', cred_id=g.identity.user.first_credentials().id) }}">{{ g.identity.user.first_credentials().nickname }}</a></p>
-  <p><a href="{{ url_for('credentials.credentials_list') }}">All credentials</a></p>
+  <p><a href="{{ url_for('zones.zones_list', cred_id=g.identity.user.first_credentials().id) }}">{{ g.identity.user.first_credentials().nickname }}</a>
+  <a href="{{ url_for('credentials.credentials_list') }}"><small>All credentials</small></a></p>
   {% endif %}
+{% else %}
+  <h2>Welcome to Route 53 Manager!</h2>
+  <p>To start working with the site, please <a href="{{ url_for('auth.login') }}">login</a> with your twitter account</p>
 {% endif %}
 {% endblock %}

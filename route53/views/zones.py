@@ -20,7 +20,7 @@ def zones_list(cred_id):
                              aws_secret_access_key=sc.secret_access_key.strip())
     response = conn.get_all_hosted_zones()
     zones = response['ListHostedZonesResponse']['HostedZones']
-    return render_template('zones/list.html', zones=zones, cred_id=cred_id)
+    return render_template('zones/list.html', zones=zones, credential=sc)
 
 
 @zones.route('/<int:cred_id>/new', methods=['GET', 'POST'])
@@ -47,4 +47,4 @@ def zones_new(cred_id):
                % (zone_id, nameservers))
 
         return redirect(url_for('zones_list', cred_id=cred_id))
-    return render_template('zones/new.html', form=form, cred_id=cred_id)
+    return render_template('zones/new.html', form=form, credential=sc)

@@ -17,7 +17,6 @@
 // But Compass recommends that you scope your blueprint styles
 // So that you can better control what pages use blueprint
 // when stylesheets are concatenated together.
-$text-color: #222
 
 +blueprint-scaffolding("body.bp")
 body.bp
@@ -40,7 +39,7 @@ body.bp
       +column($sidebar-columns)
       a
         +hover-link
-        color: $text-color 
+        color: $font-color
     .toolbar
       $content-columns: ceil(2 * $blueprint-grid-columns / 3) - 1
       +column($content-columns, true)
@@ -50,8 +49,16 @@ body.bp
 
   .messages
     +column($blueprint-grid-columns)
+    .flashes
+      padding-left: 20px
+      li
+        list-style-type: none
+        +notice
 
   .body
-    +column($blueprint-grid-columns)
+    padding: 0 20px
+    $body-columns: $blueprint-grid-columns - 1
+    +column($body-columns)
+
 form.bp
   +blueprint-form
