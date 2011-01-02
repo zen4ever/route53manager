@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block body %}
+<h2>Hosted Zone "{{ zone['Name'] }}"</h2>
+<dl>
+  <dt>Id:</dt>
+  <dd>{{ zone['Id']|shortid }}</dd>
+  <dt>Nameservers:</dt>
+  {% for ns in nameservers %}
+  <dd>{{ ns }}</dd>
+  {% endfor %}
+</dl>
+{% endblock %}

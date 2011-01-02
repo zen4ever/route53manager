@@ -52,6 +52,7 @@ def zones_delete(cred_id, zone_id):
     from route53.models import AWSCredential
     sc = AWSCredential.query.filter_by(id=cred_id, user_id=g.identity.user.id).first_or_404()
     conn = sc.get_connection()
+    zone = conn.get_hosted_zone(zone_id)['GetHostedZoneResponse']['HostedZone']
 
     if request.method == 'POST' and 'delete' in request.form:
         response = conn.delete_hosted_zone(zone_id)
@@ -59,4 +60,21 @@ def zones_delete(cred_id, zone_id):
         flash(u"A zone with id %s has been deleted" % zone_id)
 
         return redirect(url_for('zones_list', cred_id=cred_id))
-    return render_template('zones/delete.html', credential=sc, zone_id=zone_id)
+    return render_template('zones/delete.html', credential=sc, zone_id=zone_id, zone=zone)
+
+@zones.route('/<int:cred_id>/<zone_id>')
+@login_required
+def zones_detail(cred_id, zone_id):
+    from route53.models import AWSCredential
+    sc = AWSCredential.query.filter_by(id=cred_id, user_id=g.identity.user.id).first_or_404()
+    conn = sc.get_connection()
+    resp = conn.get_hosted_zone(zone_id)
+    zone = resp['GetHostedZoneResponse']['HostedZone']
+    nameservers = resp['GetHostedZoneResponse']['DelegationSet']['NameServers']
+    print zone
+
+    return render_template('zones/detail.html',
+            credential=sc,
+            zone_id=zone_id,
+            zone=zone,
+            nameservers=nameservers)

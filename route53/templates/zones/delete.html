@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block body %}
-<h2>Delete zone with id "{{ zone_id }}"</h2>
+<h2>Delete zone "{{ zone['Name'] }}"</h2>
 <p>Are you sure?</p>
 <form action="{{ url_for('zones.zones_delete', cred_id=credential.id, zone_id=zone_id) }}" method="post" accept-charset="utf-8">
   <input type="hidden" name="delete" value="delete" />
