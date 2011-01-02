@@ -7,6 +7,9 @@
 // Import the non-default scaffolding module.
 @import blueprint/scaffolding
 
+@import "compass/utilities/lists"
+@import "compass/utilities/links"
+
 // To generate css equivalent to the blueprint css but with your
 // configuration applied, uncomment:
 // @include blueprint
@@ -14,6 +17,8 @@
 // But Compass recommends that you scope your blueprint styles
 // So that you can better control what pages use blueprint
 // when stylesheets are concatenated together.
+$text-color: #222
+
 +blueprint-scaffolding("body.bp")
 body.bp
   +blueprint-typography(true)
@@ -24,20 +29,29 @@ body.bp
   // Or leave it in if you're happy with how blueprint looks out-of-the-box
   .container
     +container
+
+  .heading
+    $heading-columns: $blueprint-grid-columns - 1
+    +column($heading-columns, true)
+    padding: 20px 20px 0
+    min-height: 60px
+    h1
+      $sidebar-columns: floor($blueprint-grid-columns / 3)
+      +column($sidebar-columns)
+      a
+        +hover-link
+        color: $text-color 
+    .toolbar
+      $content-columns: ceil(2 * $blueprint-grid-columns / 3) - 1
+      +column($content-columns, true)
+      ul
+        +float-right
+        +horizontal-list
+
+  .messages
+    +column($blueprint-grid-columns)
+
+  .body
+    +column($blueprint-grid-columns)
 form.bp
   +blueprint-form
-
-// Page layout can be done using mixins applied to your semantic classes and IDs:
-body.two-col
-  #header, #footer
-    +column($blueprint-grid-columns)
-  #sidebar
-    // One third of the grid columns, rounding down. With 24 cols, this is 8.
-    $sidebar-columns: floor($blueprint-grid-columns / 3)
-    +column($sidebar-columns)
-  #content
-    // Two thirds of the grid columns, rounding up.
-    // With 24 cols, this is 16.
-    $content-columns: ceil(2 * $blueprint-grid-columns / 3)
-    // true means it's the last column in the row
-    +column($content-columns, true)

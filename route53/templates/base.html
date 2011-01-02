@@ -10,17 +10,20 @@
   </head>
   <body class="bp">
     <div class="container showgrid">
-      <h1><a href="{{ url_for('auth.index') }}">Route 53 Manager</a></h1>
-      <div class="toolbar">
-        <ul>
-          {% if g.identity.name != 'anon' %}
-          <li>Hello, {{ g.identity.name }}</li>
-          <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
-          {% else %}
-          <li><a href="{{ url_for('auth.login') }}">Login</a></li>
-          {% endif %}
-        </ul>
+      <div class="heading">
+        <h1><a href="{{ url_for('auth.index') }}">Route 53 Manager</a></h1>
+        <div class="toolbar">
+          <ul>
+            {% if g.identity.name != 'anon' %}
+            <li>Hello, {{ g.identity.name }}</li>
+            <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+            {% else %}
+            <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+            {% endif %}
+          </ul>
+        </div>
       </div>
+      <div class="messages">
       {% with messages = get_flashed_messages() %}
         {% if messages %}
           <ul class="flashes">
@@ -30,9 +33,12 @@
           </ul>
         {% endif %}
       {% endwith %}
+      </div>
 
+      <div class="body">
       {% block body %}
       {% endblock %}
+      </div>
     </div>
   </body>
 </html>
