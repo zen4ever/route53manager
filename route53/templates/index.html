@@ -3,10 +3,10 @@
 {% block body %}
 {% if g.identity.name != 'anon' %}
   {% if g.identity.user.credentials|length == 0 %}
-  <p>You need to <a href="{{ url_for('new_credentials') }}">Add credentials</a></p>
+  <p>You need to <a href="{{ url_for('credentials.new_credentials') }}">Add credentials</a></p>
   {% else %}
-  <p><a href="{{ url_for('zones_list', cred_id=g.identity.user.first_credentials().id) }}">{{ g.identity.user.first_credentials().nickname }}</a></p>
-  <p><a href="{{ url_for('credentials_list') }}">All credentials</a></p>
+  <p><a href="{{ url_for('zones.zones_list', cred_id=g.identity.user.first_credentials().id) }}">{{ g.identity.user.first_credentials().nickname }}</a></p>
+  <p><a href="{{ url_for('credentials.credentials_list') }}">All credentials</a></p>
   {% endif %}
 {% endif %}
 {% endblock %}

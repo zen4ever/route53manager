@@ -1,5 +1,7 @@
 from route53 import app
+
 from flaskext.sqlalchemy import SQLAlchemy
+from flaskext.principal import identity_loaded
 
 # initialize db
 db = SQLAlchemy(app)
@@ -44,3 +46,9 @@ class AWSCredential(db.Model):
 
     def __repr__(self):
         return "<AWSCredentials %r>" % self.nickname
+
+
+@identity_loaded.connect_via(app)
+def on_identity_loaded(sender, identity):
+    user = User.query.filter_by(username=identity.name).first()
+    identity.user = user
