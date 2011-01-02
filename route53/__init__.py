@@ -17,4 +17,8 @@ app.config.from_pyfile('application.cfg')
 principals = Principal(app)
 
 
+@app.template_filter('shortid')
+def shortid(s):
+    return s.replace('/hostedzone/', '')
+
 import route53.models, route53.oauth

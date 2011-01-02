@@ -1,3 +1,5 @@
+from boto.route53 import Route53Connection
+
 from route53 import app
 
 from flaskext.sqlalchemy import SQLAlchemy
@@ -43,6 +45,10 @@ class AWSCredential(db.Model):
         self.access_key_id = access_key_id
         self.secret_access_key = secret_access_key
         self.user_id = user_id
+
+    def get_connection(self):
+        return Route53Connection(aws_access_key_id=self.access_key_id.strip(),
+                                 aws_secret_access_key=self.secret_access_key.strip())
 
     def __repr__(self):
         return "<AWSCredentials %r>" % self.nickname

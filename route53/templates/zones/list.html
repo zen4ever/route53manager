@@ -5,7 +5,7 @@
 <p><a href="{{ url_for('zones.zones_new', cred_id=credential.id) }}">Add a zone</a></p>
 <ul>
   {% for zone in zones %}
-  <li><a href="#">{{ zone['Name'] }}</a></li>
+  <li><a href="#">{{ zone['Name'] }}</a> <a href="{{ url_for('zones.zones_delete', cred_id=credential.id, zone_id=zone['Id']|shortid) }}"><small>Delete</small></a></li>
   {% endfor %}
 </ul>
 {% endblock %}
