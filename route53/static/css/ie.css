@@ -1,0 +1,20 @@
+body.bp { text-align: center; }
+* html body.bp legend { margin: 0px -8px 16px 0; padding: 0; }
+html > body.bp p code { *white-space: normal; }
+body.bp .container { text-align: left; }
+body.bp sup { vertical-align: text-top; }
+body.bp sub { vertical-align: text-bottom; }
+body.bp hr { margin: -8px auto 11px; }
+body.bp img { -ms-interpolation-mode: bicubic; }
+body.bp fieldset { padding-top: 0; }
+body.bp textarea { overflow: auto; }
+body.bp input.text { margin: 0.5em 0; background-color: white; border: 1px solid #bbbbbb; }
+body.bp input.text:focus { border: 1px solid #666666; }
+body.bp input.title { margin: 0.5em 0; background-color: white; border: 1px solid #bbbbbb; }
+body.bp input.title:focus { border: 1px solid #666666; }
+body.bp input.checkbox { position: relative; top: 0.25em; }
+body.bp input.radio { position: relative; top: 0.25em; }
+body.bp input.button { position: relative; top: 0.25em; }
+body.bp textarea { margin: 0.5em 0; }
+body.bp select { margin: 0.5em 0; }
+body.bp button { position: relative; top: 0.25em; }

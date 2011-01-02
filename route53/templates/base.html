@@ -2,30 +2,37 @@
 <html>
   <head>
     <title>Route 53 Manager</title>
+    <link href="{{ url_for('.static', filename='css/screen.css') }}" media="screen, projection" rel="stylesheet" type="text/css" />
+    <link href="{{ url_for('.static', filename='css/print.css') }}" media="print" rel="stylesheet" type="text/css" />
+    <!--[if IE]>
+      <link href="{{ url_for('.static', filename='css/ie.css') }}" media="screen, projection" rel="stylesheet" type="text/css" />
+    <![endif]-->
   </head>
-  <body>
-    <h1><a href="{{ url_for('auth.index') }}">Route 53 Manager</a></h1>
-    <div class="toolbar">
-      <ul>
-        {% if g.identity.name != 'anon' %}
-        <li>Hello, {{ g.identity.name }}</li>
-        <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
-        {% else %}
-        <li><a href="{{ url_for('auth.login') }}">Login</a></li>
-        {% endif %}
-      </ul>
-    </div>
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul class="flashes">
-        {% for message in messages %}
-          <li>{{ message }}</li>
-        {% endfor %}
+  <body class="bp">
+    <div class="container showgrid">
+      <h1><a href="{{ url_for('auth.index') }}">Route 53 Manager</a></h1>
+      <div class="toolbar">
+        <ul>
+          {% if g.identity.name != 'anon' %}
+          <li>Hello, {{ g.identity.name }}</li>
+          <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+          {% else %}
+          <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+          {% endif %}
         </ul>
-      {% endif %}
-    {% endwith %}
+      </div>
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <ul class="flashes">
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
 
-    {% block body %}
-    {% endblock %}
+      {% block body %}
+      {% endblock %}
+    </div>
   </body>
 </html>

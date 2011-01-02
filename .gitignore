@@ -1,2 +1,3 @@
 *.pyc
 application.cfg
+sass/.sass-cache/*
