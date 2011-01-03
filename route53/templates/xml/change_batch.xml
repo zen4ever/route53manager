@@ -7,7 +7,7 @@
       <Changes>
          {% for change in changes %}
             {% from "xml/_macros.xml" import change_item %}
-            {% change_item(change) %}
+            {{ change_item(change) }}
          {% endfor %}
       </Changes>
    </ChangeBatch>
