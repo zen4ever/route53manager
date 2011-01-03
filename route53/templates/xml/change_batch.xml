@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ChangeResourceRecordSetsRequest xmlns="https://route53.amazonaws.com/doc/2010-10-01/">
+   <ChangeBatch>
+      {% if comment %}
+      <Comment>{{ comment }}</Comment>
+      {% endif %}
+      <Changes>
+         {% for change in changes %}
+            {% from "xml/_macros.xml" import change_item %}
+            {% change_item(change) %}
+         {% endfor %}
+      </Changes>
+   </ChangeBatch>
+</ChangeResourceRecordSetsRequest>

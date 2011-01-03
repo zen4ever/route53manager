@@ -1,0 +1,15 @@
+{% macro change_item(change_object) %}
+<Change>
+  <Action>{{ change_object.action }}</Action>
+  <ResourceRecordSet>
+     <Name>{{ change_object.name }}</Name>
+     <Type>{{ change_object.type }}</Type>
+     <TTL>{{ change_object.ttl }}</TTL>
+     <ResourceRecords>
+        <ResourceRecord>
+           <Value>{{ change_object.value }}</Value>
+        </ResourceRecord>
+     </ResourceRecords>
+  </ResourceRecordSet>
+</Change>
+{% endmacro %}
