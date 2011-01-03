@@ -10,6 +10,7 @@ db = SQLAlchemy(app)
 
 # Models
 
+
 class User(db.Model):
     __tablename__ = "users"
 
@@ -38,7 +39,9 @@ class AWSCredential(db.Model):
     nickname = db.Column(db.String(255))
     access_key_id = db.Column(db.String(255))
     secret_access_key = db.Column(db.String(255))
+
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    change_batches = db.relation("ChangeBatch", backref="credentials")
 
     def __init__(self, nickname, access_key_id, secret_access_key, user_id):
         self.nickname = nickname
@@ -48,10 +51,34 @@ class AWSCredential(db.Model):
 
     def get_connection(self):
         return Route53Connection(aws_access_key_id=self.access_key_id.strip(),
-                                 aws_secret_access_key=self.secret_access_key.strip())
+                 aws_secret_access_key=self.secret_access_key.strip())
 
     def __repr__(self):
         return "<AWSCredentials %r>" % self.nickname
+
+
+class ChangeBatch(db.Model):
+    __tablename__ = "change_batches"
+
+    id = db.Column(db.Integer, primary_key=True)
+    change_id = db.Column(db.String(255))
+    status = db.Column(db.String(255))
+
+    credential_id = db.Column(db.Integer, db.ForeignKey("aws_credentials.id"))
+    changes = db.relation("Change", backref="change_batch")
+
+
+class Change(db.Model):
+    __tablename__ = "changes"
+
+    id = db.Column(db.Integer, primary_key=True)
+    action = db.Column(db.String(255))
+    name = db.Column(db.String(255))
+    type = db.Column(db.String(255))
+    ttl = db.Column(db.String(255))
+    value = db.Column(db.String(255))
+
+    change_batch_id = db.Column(db.Integer, db.ForeignKey("change_batches.id"))
 
 
 @identity_loaded.connect_via(app)
