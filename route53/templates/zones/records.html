@@ -2,7 +2,11 @@
 
 {% block body %}
 <h2>Hosted Zone "{{ zone['Name'] }}"</h2>
-<pre>
-  {{ records|xmlpretty }}
-</pre>
+{% if records %}
+<ul>
+{% for record in records %}
+<li>{{ record['type'] }} {{ record['name'] }} {{ record['value'] }} {{ record['ttl'] }}</li>
+{% endfor %}
+</ul>
+{% endif %}
 {% endblock %}

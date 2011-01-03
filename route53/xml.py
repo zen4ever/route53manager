@@ -1,0 +1,8 @@
+NAMESPACE = "{https://route53.amazonaws.com/doc/2010-10-01/}"
+RECORDSET_TAG = NAMESPACE+'ResourceRecordSet'
+NAME_TAG = NAMESPACE+'Name'
+TYPE_TAG = NAMESPACE+'Type'
+TTL_TAG = NAMESPACE+'TTL'
+RECORD_TAG = NAMESPACE+'ResourceRecord'
+VALUE_TAG = NAMESPACE+'Value'
+RECORDS_TAG = NAMESPACE+'ResourceRecords'

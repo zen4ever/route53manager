@@ -1,3 +1,5 @@
+import lxml.etree as etree
+
 from flask import Module
 
 from flask import url_for, render_template, g,\
@@ -83,12 +85,41 @@ def zones_detail(cred_id, zone_id):
 @login_required
 def zones_records(cred_id, zone_id):
     from route53.models import AWSCredential
-    sc = AWSCredential.query.filter_by(id=cred_id, user_id=g.identity.user.id).first_or_404()
+    sc = AWSCredential.query.filter_by(id=cred_id,
+            user_id=g.identity.user.id).first_or_404()
     conn = sc.get_connection()
     resp = conn.get_hosted_zone(zone_id)
     zone = resp['GetHostedZoneResponse']['HostedZone']
 
-    records = conn.get_all_rrsets(zone_id)
+    record_resp = conn.get_all_rrsets(zone_id)
+
+    record_tree = etree.fromstring(record_resp)
+
+    from route53.xml import RECORDSET_TAG, NAME_TAG, TYPE_TAG, TTL_TAG, RECORDS_TAG, RECORD_TAG, VALUE_TAG
+
+    recordsets = []
+    for rs in record_tree.findall('.//'+RECORDSET_TAG):
+        recordset = {}
+        for el in rs.getchildren():
+            attr = {NAME_TAG: "name",
+                    TYPE_TAG: "type",
+                    TTL_TAG: "ttl"}.get(el.tag, None)
+            if attr:
+                recordset[attr] = el.text
+            elif el.tag == RECORDS_TAG:
+                values = map(lambda x: x.text, el.findall(RECORD_TAG+'/'+VALUE_TAG))
+                recordset["values"] = values
+            else:
+                assert False
+        recordsets.append(recordset)
+
+    records = []
+    for recordset in recordsets:
+        for value in recordset["values"]:
+            record = dict(recordset) 
+            del record["values"]
+            record["value"] = value 
+            records.append(record)
 
     return render_template('zones/records.html',
             credential=sc,
