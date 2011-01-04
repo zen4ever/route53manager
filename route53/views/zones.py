@@ -1,5 +1,3 @@
-import lxml.etree as etree
-
 from flask import Module
 
 from flask import url_for, render_template, g,\
@@ -7,6 +5,7 @@ from flask import url_for, render_template, g,\
 
 from route53.decorators import login_required
 from route53.forms import ZoneForm
+from route53.xmltools import etree
 
 zones = Module(__name__)
 
@@ -95,7 +94,7 @@ def zones_records(cred_id, zone_id):
 
     record_tree = etree.fromstring(record_resp)
 
-    from route53.xml import RECORDSET_TAG, NAME_TAG, TYPE_TAG, TTL_TAG, RECORDS_TAG, RECORD_TAG, VALUE_TAG
+    from route53.xmltools import RECORDSET_TAG, NAME_TAG, TYPE_TAG, TTL_TAG, RECORDS_TAG, RECORD_TAG, VALUE_TAG
 
     recordsets = []
     for rs in record_tree.findall('.//'+RECORDSET_TAG):

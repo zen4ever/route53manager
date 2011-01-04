@@ -5,4 +5,3 @@ Flask-SQLAlchemy==0.9.1
 Flask-WTF==0.3.4
 WTForms==0.6.1
 -e git://github.com/boto/boto.git#egg=boto
-lxml

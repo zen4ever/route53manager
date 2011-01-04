@@ -24,9 +24,4 @@ def shortid(s):
     return s.replace('/hostedzone/', '')
 
 
-@app.template_filter('xmlpretty')
-def xmlpretty(s):
-    import lxml.etree as etree
-    return etree.tostring(etree.fromstring(s), pretty_print=True)
-
 import route53.models, route53.oauth
