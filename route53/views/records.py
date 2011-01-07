@@ -1,3 +1,4 @@
+from boto.route53.exception import DNSServerError
 from flask import Module, redirect, url_for, render_template
 
 from route53.forms import RecordForm
@@ -13,6 +14,7 @@ def records_new(zone_id):
     conn = get_connection()
     zone = conn.get_hosted_zone(zone_id)['GetHostedZoneResponse']['HostedZone']
     form = RecordForm()
+    error = None
     if form.validate_on_submit():
         change_batch = ChangeBatch(change_id='', status='created', comment=form.comment.data)
         db.session.add(change_batch)
@@ -25,10 +27,13 @@ def records_new(zone_id):
         db.session.add(change)
         template = app.jinja_env.get_template('xml/change_batch.xml')
         rendered_xml = template.render({'changes': [change], 'comment': change_batch.comment})
-        resp = conn.change_rrsets(zone_id, rendered_xml)
-        change_id =  resp['ChangeResourceRecordSetsResponse']['ChangeInfo']['Id'][8:]
-        change_batch.change_id = change_id
-        change_batch.status = resp['ChangeResourceRecordSetsResponse']['ChangeInfo']['Status']
-        db.session.commit()
-        return redirect(url_for('zones.zones_records', zone_id=zone_id))
-    return render_template('records/new.html', form=form, zone=zone, zone_id=zone_id)
+        try:
+            resp = conn.change_rrsets(zone_id, rendered_xml)
+            change_id =  resp['ChangeResourceRecordSetsResponse']['ChangeInfo']['Id'][8:]
+            change_batch.change_id = change_id
+            change_batch.status = resp['ChangeResourceRecordSetsResponse']['ChangeInfo']['Status']
+            db.session.commit()
+            return redirect(url_for('zones.zones_records', zone_id=zone_id))
+        except DNSServerError as error:
+            error = error
+    return render_template('records/new.html', form=form, zone=zone, zone_id=zone_id, error=error)
