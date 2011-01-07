@@ -3,11 +3,11 @@
 {% block body %}
 <h2>Delete zone "{{ zone['Name'] }}"</h2>
 <p>Are you sure?</p>
-<form action="{{ url_for('zones.zones_delete', cred_id=credential.id, zone_id=zone_id) }}" method="post" accept-charset="utf-8">
+<form action="{{ url_for('zones.zones_delete', zone_id=zone_id) }}" method="post" accept-charset="utf-8">
   <input type="hidden" name="delete" value="delete" />
   <p>
     <button type="submit">Yes</button>
-    <a href="{{ url_for('zones.zones_list', cred_id=credential.id) }}">No</a>
+    <a href="{{ url_for('zones.zones_list') }}">No</a>
   </p>
 </form>
 {% endblock %}

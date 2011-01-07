@@ -14,12 +14,7 @@
         <h1><a href="{{ url_for('auth.index') }}">Route 53 Manager</a></h1>
         <div class="toolbar">
           <ul>
-            {% if g.identity.name != 'anon' %}
-            <li>Hello, {{ g.identity.name }}</li>
-            <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
-            {% else %}
-            <li><a href="{{ url_for('auth.login') }}">Login</a></li>
-            {% endif %}
+            <li>Hello</li>
           </ul>
         </div>
       </div>
