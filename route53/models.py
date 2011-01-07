@@ -14,6 +14,7 @@ class ChangeBatch(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     change_id = db.Column(db.String(255))
     status = db.Column(db.String(255))
+    comment = db.Column(db.String(255))
 
     changes = db.relation("Change", backref="change_batch")
 
