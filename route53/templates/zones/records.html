@@ -2,6 +2,7 @@
 
 {% block body %}
 <h2>Hosted Zone "{{ zone['Name'] }}"</h2>
+<p><a href="{{ url_for('records.records_new', zone_id=zone_id) }}">Add a record</a></p>
 {% if records %}
 <ul>
 {% for record in records %}
