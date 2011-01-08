@@ -1,3 +1,5 @@
+import urllib
+
 from flask import Flask
 
 from flaskext.principal import Principal
@@ -21,5 +23,9 @@ principals = Principal(app)
 def shortid(s):
     return s.replace('/hostedzone/', '')
 
+
+@app.template_filter('urlencode')
+def urlencode(s):
+    return urllib.quote(s, '/')
 
 import route53.models

@@ -6,7 +6,7 @@
 {% if records %}
 <ul>
 {% for record in records %}
-<li>{{ record['type'] }} {{ record['name'] }} {{ record['value'] }} {{ record['ttl'] }} <a href="{{ url_for('records.records_delete', zone_id=zone_id) }}?type={{ record['type'] }}&amp;name={{ record['name'] }}&amp;value={{ record['value'] }}&amp;ttl={{ record['ttl'] }}">Delete</a></li>
+<li>{{ record['type'] }} {{ record['name'] }} {{ record['value'] }} {{ record['ttl'] }} <a href="{{ url_for('records.records_delete', zone_id=zone_id) }}?type={{ record['type']|urlencode }}&amp;name={{ record['name']|urlencode }}&amp;value={{ record['value']|urlencode }}&amp;ttl={{ record['ttl']|urlencode }}">Delete</a></li>
 {% endfor %}
 </ul>
 {% endif %}
