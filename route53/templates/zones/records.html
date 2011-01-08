@@ -6,10 +6,10 @@
 {% if recordsets %}
 <ul>
 {% for recordset in recordsets %}
-<li>{{ recordset['type'] }} {{ recordset['name'] }} {{ recordset['ttl'] }}
+<li>{{ recordset['type'] }} {{ recordset['name'] }} {{ recordset['ttl'] }} <a href="{{ url_for('records.records_delete', zone_id=zone_id) }}?type={{ recordset['type']|urlencode }}&amp;name={{ recordset['name']|urlencode }}{% for value in recordset['values'] %}&amp;value={{ value|urlencode }}{% endfor %}&amp;ttl={{ recordset['ttl']|urlencode }}">Delete</a>
   <ul>
     {% for value in recordset['values'] %}
-    <li>{{ value }} <a href="{{ url_for('records.records_delete', zone_id=zone_id) }}?type={{ recordset['type']|urlencode }}&amp;name={{ recordset['name']|urlencode }}&amp;value={{ value|urlencode }}&amp;ttl={{ recordset['ttl']|urlencode }}">Delete</a></li>
+    <li>{{ value }}</li>
     {% endfor %}
   </ul>
 </li>

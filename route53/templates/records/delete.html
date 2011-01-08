@@ -10,7 +10,9 @@
   <input type="hidden" value="{{ val_dict['name'] }}" name="name" />
   <input type="hidden" value="{{ val_dict['type'] }}" name="type" />
   <input type="hidden" value="{{ val_dict['ttl'] }}" name="ttl" />
-  <input type="hidden" value="{{ val_dict['value'] }}" name="value" />
+  {% for value in values %}
+  <input type="hidden" value="{{ value }}" name="value" />
+  {% endfor %}
   <p>
     <button type="submit">Yes</button>
     <a href="{{ url_for('zones.zones_records', zone_id=zone_id) }}">No</a>

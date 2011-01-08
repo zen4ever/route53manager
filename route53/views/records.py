@@ -1,3 +1,5 @@
+import simplejson
+
 from boto.route53.exception import DNSServerError
 from flask import Module, redirect, url_for, render_template, request, abort
 
@@ -18,15 +20,18 @@ def records_new(zone_id):
     if form.validate_on_submit():
         change_batch = ChangeBatch(change_id='', status='created', comment=form.comment.data)
         db.session.add(change_batch)
+        values = map(lambda x: x.strip(), form.value.data.strip().split(';'))
         change = Change(action="CREATE",
                         name=form.name.data,
                         type=form.record_type.data,
                         ttl=form.ttl.data,
-                        value=form.value.data,
+                        multiple=True,
+                        value=simplejson.dumps(values),
                         change_batch_id=change_batch.id)
         db.session.add(change)
         template = app.jinja_env.get_template('xml/change_batch.xml')
-        rendered_xml = template.render({'changes': [change], 'comment': change_batch.comment})
+        rendered_xml = template.render({'changes': [change],
+                                        'comment': change_batch.comment})
         try:
             resp = conn.change_rrsets(zone_id, rendered_xml)
             change_id =  resp['ChangeResourceRecordSetsResponse']['ChangeInfo']['Id'][8:]
@@ -44,7 +49,7 @@ def records_new(zone_id):
 
 
 def get_record_fields():
-    fields = ['name', 'type', 'ttl', 'value']
+    fields = ['name', 'type', 'ttl']
     val_dict = {}
     for field in fields:
         if request.method == "GET":
@@ -64,12 +69,21 @@ def records_delete(zone_id):
     conn = get_connection()
     zone = conn.get_hosted_zone(zone_id)['GetHostedZoneResponse']['HostedZone']
     val_dict = get_record_fields()
+
+    if request.method == "GET":
+        values = request.args.getlist('value')
+        if not values:
+            abort(404)
+
     error = None
     if request.method == "POST":
         change_batch = ChangeBatch(change_id='', status='created', comment='')
         db.session.add(change_batch)
+        values = request.form.getlist('value')
         change = Change(action="DELETE",
                         change_batch_id=change_batch.id,
+                        multiple=True,
+                        value=simplejson.dumps(values),
                         **val_dict)
         db.session.add(change)
         template = app.jinja_env.get_template('xml/change_batch.xml')
@@ -85,6 +99,7 @@ def records_delete(zone_id):
             error = error
     return render_template('records/delete.html',
                            val_dict=val_dict,
+                           values = values,
                            zone=zone,
                            zone_id=zone_id,
                            error=error)

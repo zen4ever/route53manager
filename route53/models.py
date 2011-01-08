@@ -1,3 +1,5 @@
+import simplejson
+
 from route53 import app
 
 from flaskext.sqlalchemy import SQLAlchemy
@@ -27,6 +29,14 @@ class Change(db.Model):
     name = db.Column(db.String(255))
     type = db.Column(db.String(255))
     ttl = db.Column(db.String(255))
+    multiple = db.Column(db.Boolean, default=False)
     value = db.Column(db.String(255))
 
     change_batch_id = db.Column(db.Integer, db.ForeignKey("change_batches.id"))
+
+    @property
+    def values(self):
+        if self.multiple:
+            return simplejson.loads(self.value)
+        else:
+            return [self.value]

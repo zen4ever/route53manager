@@ -6,9 +6,11 @@
      <Type>{{ change_object.type }}</Type>
      <TTL>{{ change_object.ttl }}</TTL>
      <ResourceRecords>
+        {% for value in change_object.values %}
         <ResourceRecord>
-           <Value>{{ change_object.value }}</Value>
+           <Value>{{ value }}</Value>
         </ResourceRecord>
+        {% endfor %}
      </ResourceRecords>
   </ResourceRecordSet>
 </Change>
