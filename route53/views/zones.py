@@ -95,15 +95,7 @@ def zones_records(zone_id):
                 assert False
         recordsets.append(recordset)
 
-    records = []
-    for recordset in recordsets:
-        for value in recordset["values"]:
-            record = dict(recordset) 
-            del record["values"]
-            record["value"] = value 
-            records.append(record)
-
     return render_template('zones/records.html',
             zone_id=zone_id,
             zone=zone,
-            records=records)
+            recordsets=recordsets)
