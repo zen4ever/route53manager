@@ -1,5 +1,3 @@
-import simplejson
-
 from boto.route53.exception import DNSServerError
 from flask import Module, redirect, url_for, render_template, request, abort
 
@@ -25,8 +23,7 @@ def records_new(zone_id):
                         name=form.name.data,
                         type=form.record_type.data,
                         ttl=form.ttl.data,
-                        multiple=True,
-                        value=simplejson.dumps(values),
+                        values=values,
                         change_batch_id=change_batch.id)
         db.session.add(change)
         template = app.jinja_env.get_template('xml/change_batch.xml')
@@ -82,8 +79,7 @@ def records_delete(zone_id):
         values = request.form.getlist('value')
         change = Change(action="DELETE",
                         change_batch_id=change_batch.id,
-                        multiple=True,
-                        value=simplejson.dumps(values),
+                        values=values,
                         **val_dict)
         db.session.add(change)
         template = app.jinja_env.get_template('xml/change_batch.xml')
@@ -99,7 +95,7 @@ def records_delete(zone_id):
             error = error
     return render_template('records/delete.html',
                            val_dict=val_dict,
-                           values = values,
+                           values=values,
                            zone=zone,
                            zone_id=zone_id,
                            error=error)
