@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 
+{% block breadcrumbs %}
+  <li><a href="{{ url_for('zones.zones_list') }}">Zones</a></li>
+  <li>Delete {{ zone['Name'] }}</li>
+{% endblock %}
+
 {% block body %}
 <h2>Delete zone "{{ zone['Name'] }}"</h2>
 <p>Are you sure?</p>
