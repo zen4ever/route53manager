@@ -34,7 +34,8 @@ def zones_new():
         nameservers = ', '.join(info['DelegationSet']['NameServers'])
         zone_id = info['HostedZone']['Id']
 
-        flash(u"A zone with id %s has been created. Use following nameservers %s"
+        flash(u"A zone with id %s has been created. "
+              u"Use following nameservers %s"
                % (zone_id, nameservers))
 
         return redirect(url_for('zones_list'))
@@ -53,6 +54,7 @@ def zones_delete(zone_id):
 
         return redirect(url_for('zones_list'))
     return render_template('zones/delete.html', zone_id=zone_id, zone=zone)
+
 
 @zones.route('/<zone_id>')
 def zones_detail(zone_id):
@@ -77,10 +79,11 @@ def zones_records(zone_id):
 
     record_tree = etree.fromstring(record_resp)
 
-    from route53.xmltools import RECORDSET_TAG, NAME_TAG, TYPE_TAG, TTL_TAG, RECORDS_TAG, RECORD_TAG, VALUE_TAG
+    from route53.xmltools import RECORDSET_TAG, NAME_TAG, TYPE_TAG, \
+            TTL_TAG, RECORDS_TAG, RECORD_TAG, VALUE_TAG
 
     recordsets = []
-    for rs in record_tree.findall('.//'+RECORDSET_TAG):
+    for rs in record_tree.findall('.//' + RECORDSET_TAG):
         recordset = {}
         for el in rs.getchildren():
             attr = {NAME_TAG: "name",
@@ -89,7 +92,8 @@ def zones_records(zone_id):
             if attr:
                 recordset[attr] = el.text
             elif el.tag == RECORDS_TAG:
-                values = map(lambda x: x.text, el.findall(RECORD_TAG+'/'+VALUE_TAG))
+                values = map(lambda x: x.text,
+                             el.findall(RECORD_TAG + '/' + VALUE_TAG))
                 recordset["values"] = values
             else:
                 assert False

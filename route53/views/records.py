@@ -8,6 +8,7 @@ from route53.xmltools import render_change_batch
 
 records = Module(__name__)
 
+
 @records.route('/<zone_id>/new', methods=['GET', 'POST'])
 def records_new(zone_id):
     from route53.models import ChangeBatch, Change, db
@@ -16,7 +17,9 @@ def records_new(zone_id):
     form = RecordForm()
     error = None
     if form.validate_on_submit():
-        change_batch = ChangeBatch(change_id='', status='created', comment=form.comment.data)
+        change_batch = ChangeBatch(change_id='',
+                                   status='created',
+                                   comment=form.comment.data)
         db.session.add(change_batch)
         change = Change(action="CREATE",
                         name=form.name.data,
