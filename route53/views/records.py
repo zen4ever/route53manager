@@ -3,13 +3,13 @@ from flask import Module, redirect, url_for, render_template, request, abort
 
 from route53.forms import RecordForm
 from route53.connection import get_connection
+from route53.xmltools import render_change_batch
 
 
 records = Module(__name__)
 
 @records.route('/<zone_id>/new', methods=['GET', 'POST'])
 def records_new(zone_id):
-    from route53 import app
     from route53.models import ChangeBatch, Change, db
     conn = get_connection()
     zone = conn.get_hosted_zone(zone_id)['GetHostedZoneResponse']['HostedZone']
@@ -26,12 +26,11 @@ def records_new(zone_id):
                         values=values,
                         change_batch_id=change_batch.id)
         db.session.add(change)
-        template = app.jinja_env.get_template('xml/change_batch.xml')
-        rendered_xml = template.render({'changes': [change],
-                                        'comment': change_batch.comment})
+        rendered_xml = render_change_batch({'changes': [change],
+                                            'comment': change_batch.comment})
         try:
             resp = conn.change_rrsets(zone_id, rendered_xml)
-            change_id =  resp['ChangeResourceRecordSetsResponse']['ChangeInfo']['Id'][8:]
+            change_id = resp['ChangeResourceRecordSetsResponse']['ChangeInfo']['Id'][8:]
             change_batch.change_id = change_id
             change_batch.status = resp['ChangeResourceRecordSetsResponse']['ChangeInfo']['Status']
             db.session.commit()
@@ -61,7 +60,6 @@ def get_record_fields():
 
 @records.route('/<zone_id>/delete', methods=['GET', 'POST'])
 def records_delete(zone_id):
-    from route53 import app
     from route53.models import ChangeBatch, Change, db
     conn = get_connection()
     zone = conn.get_hosted_zone(zone_id)['GetHostedZoneResponse']['HostedZone']
@@ -82,11 +80,11 @@ def records_delete(zone_id):
                         values=values,
                         **val_dict)
         db.session.add(change)
-        template = app.jinja_env.get_template('xml/change_batch.xml')
-        rendered_xml = template.render({'changes': [change], 'comment': change_batch.comment})
+        rendered_xml = render_change_batch({'changes': [change],
+                                            'comment': change_batch.comment})
         try:
             resp = conn.change_rrsets(zone_id, rendered_xml)
-            change_id =  resp['ChangeResourceRecordSetsResponse']['ChangeInfo']['Id'][8:]
+            change_id = resp['ChangeResourceRecordSetsResponse']['ChangeInfo']['Id'][8:]
             change_batch.change_id = change_id
             change_batch.status = resp['ChangeResourceRecordSetsResponse']['ChangeInfo']['Status']
             db.session.commit()

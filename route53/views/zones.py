@@ -47,7 +47,7 @@ def zones_delete(zone_id):
     zone = conn.get_hosted_zone(zone_id)['GetHostedZoneResponse']['HostedZone']
 
     if request.method == 'POST' and 'delete' in request.form:
-        response = conn.delete_hosted_zone(zone_id)
+        conn.delete_hosted_zone(zone_id)
 
         flash(u"A zone with id %s has been deleted" % zone_id)
 
