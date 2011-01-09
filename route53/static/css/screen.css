@@ -99,12 +99,14 @@ body.bp .heading .toolbar ul li { list-style-image: none; list-style-type: none;
 body.bp .heading .toolbar ul li:first-child, body.bp .heading .toolbar ul li.first { padding-left: 0; }
 body.bp .heading .toolbar ul li:last-child, body.bp .heading .toolbar ul li.last { padding-right: 0; }
 body.bp .breadcrumbs { clear: both; border-bottom: 1px solid #555555; }
-body.bp .breadcrumbs ul { margin: 0; padding: 0; border: 0; outline: 0; overflow: hidden; *zoom: 1; margin-left: 20px; line-height: 3; }
-body.bp .breadcrumbs ul li { list-style-image: none; list-style-type: none; margin-left: 0px; white-space: nowrap; display: inline; float: left; padding-left: 4px; padding-right: 4px; }
+body.bp .breadcrumbs ul { overflow: hidden; margin: 0; padding: 0; border: 0; outline: 0; overflow: hidden; *zoom: 1; margin-left: 20px; padding: 0.5em 0; }
+body.bp .breadcrumbs ul li { list-style-image: none; list-style-type: none; margin-left: 0px; white-space: nowrap; display: inline; float: left; padding-left: 10px; padding-right: 10px; }
 body.bp .breadcrumbs ul li:first-child, body.bp .breadcrumbs ul li.first { padding-left: 0; }
 body.bp .breadcrumbs ul li:last-child, body.bp .breadcrumbs ul li.last { padding-right: 0; }
 body.bp .breadcrumbs ul a { text-decoration: none; }
 body.bp .breadcrumbs ul a:hover { text-decoration: underline; }
+body.bp .breadcrumbs ul li { border-right: 1px solid #222222; }
+body.bp .breadcrumbs ul li:last-child, body.bp .breadcrumbs ul li.last { border-right: none; }
 body.bp .messages { clear: both; display: inline; float: left; margin-right: 10px; width: 950px; }
 * html body.bp .messages { overflow-x: hidden; }
 body.bp .messages .flashes { padding-left: 20px; }

@@ -55,11 +55,16 @@ body.bp
     clear: both
     border-bottom: 1px solid #555
     ul
-      +horizontal-list
+      overflow: hidden
+      +horizontal-list(10px)
       margin-left: 20px
-      line-height: 3
+      padding: 0.5em 0
       a
         +hover-link
+      li
+        border-right: 1px solid #222
+        &:last-child, &.last
+          border-right: none
 
   .messages
     clear: both
