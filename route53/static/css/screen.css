@@ -109,8 +109,8 @@ body.bp .breadcrumbs ul li { border-right: 1px solid #222222; }
 body.bp .breadcrumbs ul li:last-child, body.bp .breadcrumbs ul li.last { border-right: none; }
 body.bp .messages { clear: both; display: inline; float: left; margin-right: 10px; width: 950px; }
 * html body.bp .messages { overflow-x: hidden; }
-body.bp .messages .flashes { padding-left: 20px; }
-body.bp .messages .flashes li { list-style-type: none; padding: 0.8em; margin-bottom: 1em; border: 2px solid #dddddd; background: #fff6bf; color: #514721; border-color: #ffd324; }
+body.bp .messages .flashes { padding-left: 20px; margin-bottom: 0; margin-top: 1.5em; }
+body.bp .messages .flashes li { list-style-type: none; padding: 0.8em; margin-bottom: 1em; border: 2px solid #dddddd; background: #fff6bf; color: #514721; border-color: #ffd324; margin-bottom: 0; }
 body.bp .messages .flashes li a { color: #514721; }
 body.bp .body { clear: both; padding: 2em 20px; display: inline; float: left; margin-right: 10px; width: 910px; }
 * html body.bp .body { overflow-x: hidden; }
