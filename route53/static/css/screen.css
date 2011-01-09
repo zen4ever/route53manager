@@ -112,6 +112,14 @@ body.bp .messages .flashes li { list-style-type: none; padding: 0.8em; margin-bo
 body.bp .messages .flashes li a { color: #514721; }
 body.bp .body { clear: both; padding: 2em 20px; display: inline; float: left; margin-right: 10px; width: 910px; }
 * html body.bp .body { overflow-x: hidden; }
+body.bp .body a.button { display: -moz-inline-box; -moz-box-orient: vertical; display: inline-block; vertical-align: middle; *vertical-align: auto; margin: 0.7em 0.5em 0.7em 0; border-width: 1px; border-style: solid; font-family: "Lucida Grande", Tahoma, Arial, Verdana, sans-serif; font-size: 100%; line-height: 130%; font-weight: bold; text-decoration: none; cursor: pointer; padding: 5px 10px 5px 7px; }
+body.bp .body a.button { *display: inline; }
+body.bp .body a.button img { margin: 0 3px -3px 0 !important; padding: 0; border: none; width: 16px; height: 16px; float: none; }
+body.bp .body button { display: -moz-inline-box; -moz-box-orient: vertical; display: inline-block; vertical-align: middle; *vertical-align: auto; margin: 0.7em 0.5em 0.7em 0; border-width: 1px; border-style: solid; font-family: "Lucida Grande", Tahoma, Arial, Verdana, sans-serif; font-size: 100%; line-height: 130%; font-weight: bold; text-decoration: none; cursor: pointer; width: auto; overflow: visible; padding: 4px 10px 3px 7px; }
+body.bp .body button { *display: inline; }
+body.bp .body button img { margin: 0 3px -3px 0 !important; padding: 0; border: none; width: 16px; height: 16px; float: none; }
+body.bp .body button[type] { padding: 4px 10px 4px 7px; line-height: 17px; }
+*:first-child + html body.bp .body button[type] { padding: 4px 10px 3px 7px; }
 
 form.bp label { font-weight: bold; }
 form.bp fieldset { padding: 1.4em; margin: 0 0 1.5em 0; }

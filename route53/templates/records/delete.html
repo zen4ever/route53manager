@@ -21,7 +21,7 @@
   {% endfor %}
   <p>
     <button type="submit">Yes</button>
-    <a href="{{ url_for('zones.zones_records', zone_id=zone_id) }}">No</a>
+    <a class="button" href="{{ url_for('zones.zones_records', zone_id=zone_id) }}">No</a>
   </p>
 </form>
 {% endblock %}

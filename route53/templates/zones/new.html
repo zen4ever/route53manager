@@ -7,7 +7,7 @@
 
 {% block body %}
 <h2>Add new zone</h2>
-<form action="{{ url_for('zones.zones_new') }}" method="post" accept-charset="utf-8">
+<form action="{{ url_for('zones.zones_new') }}" class="bp" method="post" accept-charset="utf-8">
   {{ form.csrf_token }}
   {% from "_formhelpers.html" import render_field %}
   <dl>
@@ -16,6 +16,7 @@
   </dl>
   <p>
     <button type="submit">Add</button>
+    <a href="{{ url_for('zones.zones_list') }}" class="button">Cancel</a>
   </p>
 </form>
 {% endblock %}

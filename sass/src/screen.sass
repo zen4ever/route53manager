@@ -6,6 +6,7 @@
 @import blueprint
 // Import the non-default scaffolding module.
 @import blueprint/scaffolding
+@import "blueprint/buttons"
 
 @import "compass/utilities/lists"
 @import "compass/utilities/links"
@@ -74,6 +75,12 @@ body.bp
     padding: 2em 20px
     $body-columns: $blueprint-grid-columns - 1
     +column($body-columns)
+
+    a.button
+      +anchor-button
+
+    button
+      +button-button
 
 form.bp
   +blueprint-form

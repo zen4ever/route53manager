@@ -11,7 +11,7 @@
 {% if error %}
 <p class="error">{{ error.error_message }}</p>
 {% endif %}
-<form action="{{ url_for('records.records_new', zone_id=zone_id) }}" method="post" accept-charset="utf-8">
+<form action="{{ url_for('records.records_new', zone_id=zone_id) }}" class="bp" method="post" accept-charset="utf-8">
   {{ form.csrf_token }}
   {% from "_formhelpers.html" import render_field %}
   <dl>
@@ -22,7 +22,8 @@
     {{ render_field(form.comment) }}
   </dl>
   <p>
-    <button type="submit">Add</button>
+    <button class="button" type="submit">Add</button>
+    <a href="{{ url_for('zones.zones_records', zone_id=zone_id) }}" class="button">Cancel</a>
   </p>
 </form>
 {% endblock %}
