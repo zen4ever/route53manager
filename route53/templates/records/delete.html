@@ -1,5 +1,11 @@
 {% extends "base.html" %}
 
+{% block breadcrumbs %}
+  <li><a href="{{ url_for('zones.zones_list') }}">Zones</a></li>
+  <li><a href="{{ url_for('zones.zones_records', zone_id=zone_id) }}">Records for {{ zone['Name'] }}</a></li>
+  <li>Delete record {{ val_dict['type'] }} {{ val_dict['name'] }}</li>
+{% endblock %}
+
 {% block body %}
 <h2>Delete record</h2>
 {% if error %}
