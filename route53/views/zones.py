@@ -27,7 +27,6 @@ def zones_new():
     if form.validate_on_submit():
         response = conn.create_hosted_zone(
                 form.name.data,
-                caller_ref="%s-%s" % (form.name.data, form.comment.data),
                 comment=form.comment.data)
 
         info = response['CreateHostedZoneResponse']
