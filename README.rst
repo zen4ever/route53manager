@@ -1,10 +1,26 @@
 Route 53 Manager
 ----------------
 
-Management GUI for Route 53 Amazon Cloud DNS service written in Flask.
+Simple GUI for Route 53 Amazon Cloud DNS service written using Flask and
+boto.
+
+Features
+========
+
+* Create/delete hosted zones
+* Create/update/delete records
+* Manipulate recordsets
+
+Route 53 Manager is meant to be running locally, on user's machine, or local
+network behind the firewall. It allows you to manage DNS zones and records
+for AWS credentials specified in application.cfg
+(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
+
+Since you are running the app, you don't need to pass your AWS credentials to
+any third party website.
 
 How to install
---------------
+==============
 
 Clone the project from GitHub
 
