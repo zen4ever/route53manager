@@ -115,7 +115,7 @@ def records_update(zone_id):
     error = None
     if request.method == "POST":
         form = RecordForm()
-        change_batch = ChangeBatch(change_id='', status='created', comment='')
+        change_batch = ChangeBatch(change_id='', status='created', comment=form.comment.data)
         db.session.add(change_batch)
         values = request.form.getlist('data_value')
         delete_change = Change(action="DELETE",
