@@ -8,6 +8,10 @@
 
 {% block body %}
 <h2>Add new record</h2>
+<p>You can use semicolon ";" to separate values in the "Value" field. It allows you to create recordset with several records.</p>
+<h3>Examples</h3>
+<p>Assign multiple IPs to one A record for round-robin DNS:<br />192.168.1.1;192.168.1.2</p>
+<p>Configure MX records for Google Apps:<br />1 ASPMX.L.GOOGLE.COM;5 ALT1.ASPMX.L.GOOGLE.COM;5 ALT2.ASPMX.L.GOOGLE.COM;10 ASPMX2.GOOGLEMAIL.COM;10 ASPMX3.GOOGLEMAIL.COM</p>
 {% if error %}
 <p class="error">{{ error.error_message }}</p>
 {% endif %}
