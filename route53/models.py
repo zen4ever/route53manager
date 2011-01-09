@@ -20,6 +20,11 @@ class ChangeBatch(db.Model):
 
     changes = db.relation("Change", backref="change_batch")
 
+    def process_response(self, resp):
+        change_info = resp['ChangeResourceRecordSetsResponse']['ChangeInfo']
+        self.change_id = change_info['Id'][8:]
+        self.status = change_info['Status']
+
 
 class Change(db.Model):
     __tablename__ = "changes"

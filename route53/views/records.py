@@ -18,21 +18,18 @@ def records_new(zone_id):
     if form.validate_on_submit():
         change_batch = ChangeBatch(change_id='', status='created', comment=form.comment.data)
         db.session.add(change_batch)
-        values = map(lambda x: x.strip(), form.value.data.strip().split(';'))
         change = Change(action="CREATE",
                         name=form.name.data,
                         type=form.record_type.data,
                         ttl=form.ttl.data,
-                        values=values,
+                        values=form.values,
                         change_batch_id=change_batch.id)
         db.session.add(change)
         rendered_xml = render_change_batch({'changes': [change],
                                             'comment': change_batch.comment})
         try:
             resp = conn.change_rrsets(zone_id, rendered_xml)
-            change_id = resp['ChangeResourceRecordSetsResponse']['ChangeInfo']['Id'][8:]
-            change_batch.change_id = change_id
-            change_batch.status = resp['ChangeResourceRecordSetsResponse']['ChangeInfo']['Status']
+            change_batch.process_response(resp)
             db.session.commit()
             return redirect(url_for('zones.zones_records', zone_id=zone_id))
         except DNSServerError as error:
@@ -84,9 +81,7 @@ def records_delete(zone_id):
                                             'comment': change_batch.comment})
         try:
             resp = conn.change_rrsets(zone_id, rendered_xml)
-            change_id = resp['ChangeResourceRecordSetsResponse']['ChangeInfo']['Id'][8:]
-            change_batch.change_id = change_id
-            change_batch.status = resp['ChangeResourceRecordSetsResponse']['ChangeInfo']['Status']
+            change_batch.process_response(resp)
             db.session.commit()
             return redirect(url_for('zones.zones_records', zone_id=zone_id))
         except DNSServerError as error:

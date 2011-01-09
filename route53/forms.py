@@ -27,3 +27,9 @@ class RecordForm(wtf.Form):
     ttl = wtf.IntegerField("TTL", default="86400",
             validators=[validators.Required()])
     comment = wtf.TextAreaField("Comment")
+
+    @property
+    def values(self):
+        return filter(lambda x: x,
+                  map(lambda x: x.strip(),
+                      self.value.data.strip().split(';')))
