@@ -3,16 +3,24 @@
 {% block breadcrumbs %}
   <li><a href="{{ url_for('zones.zones_list') }}">Zones</a></li>
   <li><a href="{{ url_for('zones.zones_records', zone_id=zone_id) }}">Records for {{ zone['Name'] }}</a></li>
-  <li>Delete record {{ val_dict['type'] }} {{ val_dict['name'] }}</li>
+  <li>Update record {{ val_dict['type'] }} {{ val_dict['name'] }}</li>
 {% endblock %}
 
 {% block body %}
-<h2>Delete record</h2>
+<h2>Update record</h2>
 {% if error %}
 <p class="error">{{ error.error_message }}</p>
 {% endif %}
-<form action="{{ url_for('records.records_delete', zone_id=zone_id) }}" method="post" accept-charset="utf-8">
-  <p>Are you sure?</p>
+<form class="bp" action="{{ url_for('records.records_update', zone_id=zone_id) }}" method="post" accept-charset="utf-8">
+  {{ form.csrf_token }}
+  {% from "_formhelpers.html" import render_field %}
+  <dl>
+    {{ render_field(form.type) }}
+    {{ render_field(form.name) }}
+    {{ render_field(form.value) }}
+    {{ render_field(form.ttl) }}
+    {{ render_field(form.comment) }}
+  </dl>
   <input type="hidden" value="{{ val_dict['name'] }}" name="data_name" />
   <input type="hidden" value="{{ val_dict['type'] }}" name="data_type" />
   <input type="hidden" value="{{ val_dict['ttl'] }}" name="data_ttl" />

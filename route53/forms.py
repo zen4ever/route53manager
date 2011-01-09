@@ -21,7 +21,7 @@ class ZoneForm(wtf.Form):
 
 
 class RecordForm(wtf.Form):
-    record_type = wtf.SelectField("Type", choices=RECORD_CHOICES)
+    type = wtf.SelectField("Type", choices=RECORD_CHOICES)
     name = wtf.TextField("Name", validators=[validators.Required()])
     value = wtf.TextField("Value", validators=[validators.Required()])
     ttl = wtf.IntegerField("TTL", default="86400",
