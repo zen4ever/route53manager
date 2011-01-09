@@ -8,6 +8,9 @@
 {% block body %}
 <h2>Delete zone "{{ zone['Name'] }}"</h2>
 <p>Are you sure?</p>
+{% if error %}
+<p class="error">{{ error.error_message }}</p>
+{% endif %}
 <form action="{{ url_for('zones.zones_delete', zone_id=zone_id) }}" method="post" accept-charset="utf-8">
   <input type="hidden" name="delete" value="delete" />
   <p>

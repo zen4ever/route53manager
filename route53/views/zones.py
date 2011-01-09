@@ -1,3 +1,4 @@
+from boto.route53.exception import DNSServerError
 from flask import Module
 
 from flask import url_for, render_template, \
@@ -47,13 +48,21 @@ def zones_delete(zone_id):
     conn = get_connection()
     zone = conn.get_hosted_zone(zone_id)['GetHostedZoneResponse']['HostedZone']
 
+    error = None
+
     if request.method == 'POST' and 'delete' in request.form:
-        conn.delete_hosted_zone(zone_id)
+        try:
+            conn.delete_hosted_zone(zone_id)
 
-        flash(u"A zone with id %s has been deleted" % zone_id)
+            flash(u"A zone with id %s has been deleted" % zone_id)
 
-        return redirect(url_for('zones_list'))
-    return render_template('zones/delete.html', zone_id=zone_id, zone=zone)
+            return redirect(url_for('zones_list'))
+        except DNSServerError as error:
+            error = error
+    return render_template('zones/delete.html',
+                           zone_id=zone_id,
+                           zone=zone,
+                           error=error)
 
 
 @zones.route('/<zone_id>')
