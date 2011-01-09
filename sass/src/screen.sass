@@ -9,6 +9,7 @@
 
 @import "compass/utilities/lists"
 @import "compass/utilities/links"
+@import "compass/css3"
 
 // To generate css equivalent to the blueprint css but with your
 // configuration applied, uncomment:
@@ -28,12 +29,14 @@ body.bp
   // Or leave it in if you're happy with how blueprint looks out-of-the-box
   .container
     +container
+    +box-shadow
 
   .heading
     $heading-columns: $blueprint-grid-columns - 1
     +column($heading-columns, true)
     padding: 20px 20px 0
     min-height: 60px
+    border-bottom: 1px solid #222
     h1
       $sidebar-columns: floor($blueprint-grid-columns / 3)
       +column($sidebar-columns)
@@ -47,7 +50,11 @@ body.bp
         +float-right
         +horizontal-list
 
+  .breadcrumbs
+    clear: both
+
   .messages
+    clear: both
     +column($blueprint-grid-columns)
     .flashes
       padding-left: 20px
@@ -56,7 +63,8 @@ body.bp
         +notice
 
   .body
-    padding: 0 20px
+    clear: both
+    padding: 2em 20px
     $body-columns: $blueprint-grid-columns - 1
     +column($body-columns)
 

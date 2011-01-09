@@ -9,14 +9,13 @@
     <![endif]-->
   </head>
   <body class="bp">
-    <div class="container showgrid">
+    <div class="container">
       <div class="heading">
         <h1><a href="{{ url_for('auth.index') }}">Route 53 Manager</a></h1>
-        <div class="toolbar">
-          <ul>
-            <li>Hello</li>
-          </ul>
-        </div>
+      </div>
+      <div class="breadcrumbs">
+      {% block breadcrumbs %}
+      {% endblock %}
       </div>
       <div class="messages">
       {% with messages = get_flashed_messages() %}
