@@ -10,6 +10,7 @@ Features
 * Create/delete hosted zones
 * Create/update/delete records
 * Manipulate recordsets
+* Stores change log in the SQL database
 
 Route 53 Manager is meant to be running locally, on user's machine, or local
 network behind the firewall. It allows you to manage DNS zones and records
@@ -24,7 +25,7 @@ How to install
 
 Clone the project from GitHub
 
-  git clone git@github.com:marpasoft/route53manager.git
+  git clone git://github.com/zen4ever/route53manager.git
 
 Install dependencies
 
