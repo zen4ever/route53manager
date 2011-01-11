@@ -28,6 +28,7 @@ Clone the project from GitHub
 ::
 
   git clone git://github.com/zen4ever/route53manager.git
+  cd route53manager
 
 Install dependencies
 
