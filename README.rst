@@ -25,19 +25,27 @@ How to install
 
 Clone the project from GitHub
 
+::
+
   git clone git://github.com/zen4ever/route53manager.git
 
 Install dependencies
 
+::
+
   pip install -r requirements.txt
 
 Create config file
+
+::
 
   cp route53/application.cfg.example route53/application.cfg
 
 Add your AWS credentials to newly created "application.cfg"
 
 Create empty database and run development server
+
+::
 
   ./create_db.py
   ./runserver.py
