@@ -11,10 +11,10 @@
 {% if recordsets %}
 <ul>
 {% for recordset in recordsets %}
-<li>{{ recordset['type'] }} {{ recordset['name'] }} {{ recordset['ttl'] }} <a href="{{ url_for('records.records_delete', zone_id=zone_id) }}?type={{ recordset['type']|urlencode }}&amp;name={{ recordset['name']|urlencode }}{% for value in recordset['values'] %}&amp;value={{ value|urlencode }}{% endfor %}&amp;ttl={{ recordset['ttl']|urlencode }}">Delete</a>
-<a href="{{ url_for('records.records_update', zone_id=zone_id) }}?type={{ recordset['type']|urlencode }}&amp;name={{ recordset['name']|urlencode }}{% for value in recordset['values'] %}&amp;value={{ value|urlencode }}{% endfor %}&amp;ttl={{ recordset['ttl']|urlencode }}">Update</a>
+<li>{{ recordset.type }} {{ recordset.name }} {{ recordset.ttl }} <a href="{{ url_for('records.records_delete', zone_id=zone_id) }}?type={{ recordset.type|urlencode }}&amp;name={{ recordset.name|urlencode }}{% for value in recordset.resource_records %}&amp;value={{ value|urlencode }}{% endfor %}&amp;ttl={{ recordset.ttl|urlencode }}">Delete</a>
+<a href="{{ url_for('records.records_update', zone_id=zone_id) }}?type={{ recordset.type|urlencode }}&amp;name={{ recordset.name|urlencode }}{% for value in recordset.values %}&amp;value={{ value|urlencode }}{% endfor %}&amp;ttl={{ recordset.ttl|urlencode }}">Update</a>
   <ul>
-    {% for value in recordset['values'] %}
+    {% for value in recordset.resource_records %}
     <li>{{ value }}</li>
     {% endfor %}
   </ul>

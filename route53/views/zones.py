@@ -85,29 +85,10 @@ def zones_records(zone_id):
 
     record_resp = conn.get_all_rrsets(zone_id)
 
-    record_tree = etree.fromstring(record_resp)
-
     from route53.xmltools import RECORDSET_TAG, NAME_TAG, TYPE_TAG, \
             TTL_TAG, RECORDS_TAG, RECORD_TAG, VALUE_TAG
-
-    recordsets = []
-    for rs in record_tree.findall('.//' + RECORDSET_TAG):
-        recordset = {}
-        for el in rs.getchildren():
-            attr = {NAME_TAG: "name",
-                    TYPE_TAG: "type",
-                    TTL_TAG: "ttl"}.get(el.tag, None)
-            if attr:
-                recordset[attr] = el.text
-            elif el.tag == RECORDS_TAG:
-                values = map(lambda x: x.text,
-                             el.findall(RECORD_TAG + '/' + VALUE_TAG))
-                recordset["values"] = values
-            else:
-                assert False
-        recordsets.append(recordset)
 
     return render_template('zones/records.html',
             zone_id=zone_id,
             zone=zone,
-            recordsets=recordsets)
+            recordsets=record_resp)
