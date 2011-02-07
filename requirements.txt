@@ -1,5 +1,5 @@
 Flask==0.6
 Flask-SQLAlchemy==0.9.1
-Flask-WTF==0.3.4
+Flask-WTF==0.5.1
 simplejson
 -e git://github.com/boto/boto.git#egg=boto
