@@ -3,11 +3,11 @@ import urllib
 from flask import Flask
 
 from route53.views.zones import zones
-from route53.views.auth import auth
+from route53.views.main import main
 from route53.views.records import records
 
 app = Flask(__name__)
-app.register_module(auth)
+app.register_module(main)
 app.register_module(zones, url_prefix='/zones')
 app.register_module(records, url_prefix='/records')
 
