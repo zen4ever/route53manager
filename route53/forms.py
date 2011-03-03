@@ -33,3 +33,7 @@ class RecordForm(wtf.Form):
         return filter(lambda x: x,
                   map(lambda x: x.strip(),
                       self.value.data.strip().split(';')))
+
+
+class APIKeyForm(wtf.Form):
+    key = wtf.TextField('API Key', validators=[validators.Required()])

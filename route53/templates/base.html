@@ -12,6 +12,16 @@
     <div class="container">
       <div class="heading">
         <h1><a href="{{ url_for('main.index') }}">Route 53 Manager</a></h1>
+        <div class="toolbar">
+        <ul>
+          {% if request.authorization.username %}
+          <li>Welcome, {{ request.authorization.username }}</li>
+          {% endif %}
+          {% block toolbar %}
+          <li><a href="{{ url_for('slicehost.index') }}">Import from Slicehost</a></li>
+          {% endblock %}
+        </ul>
+      </div>
       </div>
       <div class="breadcrumbs">
         <ul>

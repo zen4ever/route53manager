@@ -1,0 +1,20 @@
+{% extends "slicehost/base.html" %}
+
+{% block breadcrumbs %}
+  <li><a href="{{ url_for('main.index') }}">Home</a></li>
+  <li>Slicehost</li>
+{% endblock %}
+
+{% block toolbar %}{% endblock %}
+
+{% block body %}
+<h2>Enter Slicehost API key</h2>
+<form action="{{ url_for('slicehost.index') }}" class="bp" method="post" accept-charset="utf-8">
+  {{ form.csrf_token }}
+  {% from "_formhelpers.html" import render_field %}
+  <dl>
+    {{ render_field(form.key) }}
+  </dl>
+  <button type="submit">Submit</button>
+</form>
+{% endblock %}

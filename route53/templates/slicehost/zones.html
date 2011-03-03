@@ -1,0 +1,17 @@
+{% extends "slicehost/base.html" %}
+
+{% block breadcrumbs %}
+  <li><a href="{{ url_for('main.index') }}">Home</a></li>
+  <li>Slicehost Zones</li>
+{% endblock %}
+
+{% block body %}
+<h2>Slicehost Zones</h2>
+<ul>
+  {% for zone in zones %}
+  <li>
+  <a href="{{ url_for('slicehost.records', zone_id=zone['id']) }}">{{ zone['origin'] }}</a>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "slicehost/base.html" %}
+
+{% block breadcrumbs %}
+  <li><a href="{{ url_for('main.index') }}">Home</a></li>
+  <li><a href="{{ url_for('slicehost.zones') }}">Slicehost Zones</a></li>
+  <li><a href="{{ url_for('slicehost.records', zone_id=zone['id']) }}">Slicehost Records for {{ zone['origin'] }}</a></li>
+  <li>Errors in import for {{ zone['origin'] }}</li>
+{% endblock %}
+
+{% block body %}
+<h2>Errors in import for {{ zone['origin'] }}</h2>
+<ul>
+  {% for record_type, name, error in errors %}
+  <li>{{ record_type }} {{ name }}<br />{{ error }}</li>
+  {% endfor %}
+</ul>
+<p><a href="{{ url_for('main.index') }}">Go to Route 53 zone list</a></p>
+{% endblock %}

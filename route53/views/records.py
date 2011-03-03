@@ -37,6 +37,7 @@ def records_new(zone_id):
             return redirect(url_for('zones.zones_records', zone_id=zone_id))
         except DNSServerError as error:
             error = error
+            db.session.rollback()
     return render_template('records/new.html',
                            form=form,
                            zone=zone,

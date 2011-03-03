@@ -5,6 +5,7 @@ from flask import Flask
 from route53.views.zones import zones
 from route53.views.main import main
 from route53.views.records import records
+from route53.views.slicehost import slicehost
 
 from auth import FlaskRealmDigestDB, AuthMiddleware
 
@@ -12,6 +13,7 @@ app = Flask(__name__)
 app.register_module(main)
 app.register_module(zones, url_prefix='/zones')
 app.register_module(records, url_prefix='/records')
+app.register_module(slicehost, url_prefix='/slicehost')
 
 # load configuration
 app.config.from_pyfile('application.cfg')

@@ -1,0 +1,25 @@
+{% extends "slicehost/base.html" %}
+
+{% block breadcrumbs %}
+  <li><a href="{{ url_for('main.index') }}">Home</a></li>
+  <li><a href="{{ url_for('slicehost.zones') }}">Slicehost Zones</a></li>
+  <li>Slicehost Records for {{ zone['origin'] }}</li>
+{% endblock %}
+
+{% block body %}
+<h2>Slicehost Records for {{ zone['origin'] }}</h2>
+<ul>
+  {% for record_type, name, rcds in records %}
+  <li>{{ record_type }} {{ name }} {{ rcds[0].ttl }}<br />
+  <ul>
+    {% for record in rcds %}
+    <li>{{ record['data'] }} {% if record['record_type'] == 'MX' %} {{ record['aux'] }}{% endif %}</li>
+    {% endfor %}
+  </ul>
+  </li>
+  {% endfor %}
+</ul>
+<form action="{{ url_for('slicehost.import_zone', zone_id=zone['id']) }}" method="POST" class="bp">
+  <button type="submit">Import zone</button>
+</form>
+{% endblock %}
