@@ -107,7 +107,7 @@ class RealmDigestDB(object):
         hashPass = self[authorization.username]
         if hashPass is None:
             return authResult.deny('unknown_user')
-        elif not self.alg.verify(authorization, hashPass, **kw):
+        elif not self.alg.verify(authorization, hashPass, method=request.method, **kw):
             return authResult.deny('invalid_password')
         else:
             return authResult.approve('success')
