@@ -52,3 +52,17 @@ Create empty database and run development server
   ./runserver.py
 
 Visit http://127.0.0.1:5000/ in your favorite browser
+
+Authentication
+==============
+
+If you want to run Route53Manager on intranet open only to certain users,
+you can enable digest authentication. Define AUTH_USERS variable in your
+route53/application.cfg like this:
+
+::
+
+  AUTH_USERS = [
+    ('admin', 'admin_password'),
+    ('test', 'secret_password'),
+  ]
