@@ -11,6 +11,8 @@ Features
 * Create/update/delete records
 * Manipulate recordsets
 * Stores change log in the SQL database
+* Optional Digest Authentication
+* Import dns records from Slicehost one zone at a time
 
 Route 53 Manager is meant to be running locally, on user's machine, or local
 network behind the firewall. It allows you to manage DNS zones and records
