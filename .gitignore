@@ -1,3 +1,4 @@
 *.pyc
 application.cfg
 sass/.sass-cache/*
+dev.db
