@@ -105,11 +105,16 @@ def import_zone(zone_id):
         record_type, name = k
         rcds = list(g)
         record_name = zone.origin in name and name or name + "." + zone.origin
+
+        if record_type != 'MX':
+            values = map(lambda x: x.data, rcds)
+        else:
+            values = map(lambda x: "%s %s" % (x.aux, x.data), rcds)
         change = Change(action="CREATE",
                         name=record_name,
                         type=record_type,
                         ttl=rcds[0].ttl,
-                        values=map(lambda x: x.data, rcds),
+                        values=values,
                         change_batch_id=change_batch.id)
         db.session.add(change)
         changes = [change]
