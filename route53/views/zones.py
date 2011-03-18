@@ -120,8 +120,6 @@ def zones_clone(zone_id):
         for recordset in original_records:
             if not recordset.type in ["SOA", "NS"]:
 
-                print recordset.type
-
                 change_batch = ChangeBatch(change_id='',
                                            status='created',
                                            comment='')
@@ -138,8 +136,6 @@ def zones_clone(zone_id):
                 changes = [change]
 
                 rendered_xml = render_change_batch({'changes': changes, 'comment': ''})
-
-                print rendered_xml
 
                 try:
                     from route53 import shortid
