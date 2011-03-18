@@ -87,7 +87,7 @@ FAQ
 
    ::
 
-       app.run(host=0.0.0.0)
+       app.run(host="0.0.0.0")
 
    so your dev server will listen to external requests.
 
