@@ -1,0 +1,19 @@
+{% extends "zones/new.html" %}
+
+{% block breadcrumbs %}
+  <li><a href="{{ url_for('zones.zones_list') }}">Zones</a></li>
+  <li>Clone zone "{{ original_zone['Name'] }}"</li>
+{% endblock %}
+
+{% block page_title %}Clone zone "{{ original_zone['Name'] }}"{% endblock %}
+
+{% block afterform %}
+{% if errors %}
+<h2>Zone was cloned with following errors </h2>
+<ul>
+  {% for error in errors %}
+  <li>{{ error }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}
