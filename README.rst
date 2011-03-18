@@ -12,7 +12,8 @@ Features
 * Manipulate recordsets
 * Stores change log in the SQL database
 * Optional Digest Authentication
-* Import dns records from Slicehost one zone at a time
+* Import DNS records from Slicehost one zone at a time
+* Clone DNS zone with all rules, but new domain
 
 Route 53 Manager is meant to be running locally, on user's machine, or local
 network behind the firewall. It allows you to manage DNS zones and records
@@ -68,3 +69,29 @@ route53/application.cfg like this:
     ('admin', 'admin_password'),
     ('test', 'secret_password'),
   ]
+
+FAQ
+===
+
+1. Which Python version is supported by route53manager?
+
+   Flask `documentation <http://flask.pocoo.org/docs/installation/#installation>`_ says that Python2.5+ is required. Some of the plugins might use Python 2.6 specific features, so, recommended version is Python 2.6+.
+
+2. How do I make Route53Manager accessible to requests from other machines on
+   my local network?
+
+   By default runserver.py spins a local development server which listens to
+   127.0.0.1 IP address, which is not accessible from other machines on your
+   network. You can use your machine's IP address (e.g. 192.168.1.15) or
+   0.0.0.0 in runserver.py
+
+   ::
+       app.run(host=0.0.0.0)
+
+   so your dev server will listen to external requests.
+
+   You can also use some other WSGI server like Gunicorn.
+
+   ::
+       pip install gunicorn
+       gunicorn route53:app -b 0.0.0.0:8000
