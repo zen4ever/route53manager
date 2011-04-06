@@ -1,6 +1,7 @@
 from flaskext import wtf
 from flaskext.wtf import validators
 
+
 RECORD_CHOICES = [
     ('A', 'A'),
     ('AAAA', 'AAAA'),
@@ -30,10 +31,12 @@ class RecordForm(wtf.Form):
 
     @property
     def values(self):
-        return filter(lambda x: x,
-                  map(lambda x: x.strip(),
-                      self.value.data.strip().split(';')))
-
+        if self.type.data != 'TXT':
+            return filter(lambda x: x,
+                      map(lambda x: x.strip(),
+                          self.value.data.strip().split(';')))
+        else:
+            return [self.value.data.strip()]
 
 class APIKeyForm(wtf.Form):
     key = wtf.TextField('API Key', validators=[validators.Required()])
