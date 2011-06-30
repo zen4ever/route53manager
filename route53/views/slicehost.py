@@ -106,7 +106,7 @@ def import_zone(zone_id):
         rcds = list(g)
         record_name = zone.origin in name and name or name + "." + zone.origin
 
-        if record_type != 'MX':
+        if record_type not in ('MX', 'SRV'):
             values = map(lambda x: x.data, rcds)
         else:
             values = map(lambda x: "%s %s" % (x.aux, x.data), rcds)
