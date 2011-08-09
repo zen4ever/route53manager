@@ -16,6 +16,8 @@
   <input type="hidden" value="{{ val_dict['name'] }}" name="data_name" />
   <input type="hidden" value="{{ val_dict['type'] }}" name="data_type" />
   <input type="hidden" value="{{ val_dict['ttl'] }}" name="data_ttl" />
+  <input type="hidden" value="{{ alias_hosted_zone_id }}" name="data_alias_hosted_zone_id" />
+  <input type="hidden" value="{{ alias_dns_name }}" name="data_alias_dns_name" />
   {% for value in values %}
   <input type="hidden" value="{{ value }}" name="data_value" />
   {% endfor %}

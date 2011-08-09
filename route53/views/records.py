@@ -25,7 +25,7 @@ def records_new(zone_id):
                         name=form.name.data,
                         type=form.type.data,
                         ttl=form.ttl.data,
-                        values=form.values,
+                        values={'values': form.values},
                         change_batch_id=change_batch.id)
         db.session.add(change)
         rendered_xml = render_change_batch({'changes': [change],
@@ -46,7 +46,11 @@ def records_new(zone_id):
 
 
 def get_record_fields():
-    fields = ['name', 'type', 'ttl']
+    fields = [
+        'name',
+        'type',
+        'ttl',
+    ]
     val_dict = {}
     for field in fields:
         if request.method == "GET":
@@ -68,7 +72,9 @@ def records_delete(zone_id):
 
     if request.method == "GET":
         values = request.args.getlist('value')
-        if not values:
+        alias_hosted_zone_id = request.args.get('alias_hosted_zone_id', None)
+        alias_dns_name = request.args.get('alias_dns_name', None)
+        if not values and not alias_hosted_zone_id and not alias_dns_name:
             abort(404)
 
     error = None
@@ -76,9 +82,15 @@ def records_delete(zone_id):
         change_batch = ChangeBatch(change_id='', status='created', comment='')
         db.session.add(change_batch)
         values = request.form.getlist('data_value')
+        alias_hosted_zone_id = request.form.get('data_alias_hosted_zone_id', None)
+        alias_dns_name = request.form.get('data_alias_dns_name', None)
         change = Change(action="DELETE",
                         change_batch_id=change_batch.id,
-                        values=values,
+                        values={
+                            'values': values,
+                            'alias_hosted_zone_id': alias_hosted_zone_id,
+                            'alias_dns_name': alias_dns_name,
+                        },
                         **val_dict)
         db.session.add(change)
         rendered_xml = render_change_batch({'changes': [change],
@@ -93,6 +105,8 @@ def records_delete(zone_id):
     return render_template('records/delete.html',
                            val_dict=val_dict,
                            values=values,
+                           alias_hosted_zone_id=alias_hosted_zone_id,
+                           alias_dns_name=alias_dns_name,
                            zone=zone,
                            zone_id=zone_id,
                            error=error)
@@ -121,11 +135,11 @@ def records_update(zone_id):
         values = request.form.getlist('data_value')
         delete_change = Change(action="DELETE",
                                change_batch_id=change_batch.id,
-                               values=values,
+                               values={'values': values},
                                **val_dict)
         create_change = Change(action="CREATE",
                                change_batch_id=change_batch.id,
-                               values=form.values,
+                               values={'values': form.values},
                                type=form.type.data,
                                ttl=form.ttl.data,
                                name=form.name.data)
