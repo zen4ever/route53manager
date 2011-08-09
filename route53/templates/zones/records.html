@@ -15,6 +15,8 @@
 {% if recordset.resource_records %}
 <a href="{{ url_for('records.records_delete', zone_id=zone_id) }}?type={{ recordset.type|urlencode }}&amp;name={{ recordset.name|urlencode }}{% for value in recordset.resource_records %}&amp;value={{ value|urlencode }}{% endfor %}&amp;ttl={{ recordset.ttl }}{% if recordset.alias_dns_name %}&amp;alias_dns_name={{ recordset.alias_dns_name|urlencode }}{% endif %}{% if recordset.alias_hosted_zone_id %}&amp;alias_hosted_zone_id={{ recordset.alias_hosted_zone_id|urlencode }}{% endif %}">Delete</a>
 <a href="{{ url_for('records.records_update', zone_id=zone_id) }}?type={{ recordset.type|urlencode }}&amp;name={{ recordset.name|urlencode }}{% for value in recordset.resource_records %}&amp;value={{ value|urlencode }}{% endfor %}&amp;ttl={{ recordset.ttl }}">Update</a>
+{% else %}
+<em>(This record cannot be edited)</em>
 {% endif %}
   <ul>
     {% for value in recordset.resource_records %}
