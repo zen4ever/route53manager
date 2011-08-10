@@ -1,4 +1,5 @@
 from boto.route53.exception import DNSServerError
+from itertools import groupby
 from flask import Module
 
 from flask import url_for, render_template, \
@@ -84,12 +85,16 @@ def zones_records(zone_id):
     resp = conn.get_hosted_zone(zone_id)
     zone = resp['GetHostedZoneResponse']['HostedZone']
 
-    record_resp = conn.get_all_rrsets(zone_id)
+    record_resp = sorted(conn.get_all_rrsets(zone_id), key=lambda x: x.type)
+
+    groups = groupby(record_resp, key=lambda x: x.type)
+
+    groups = [(k, list(v)) for k, v in groups]
 
     return render_template('zones/records.html',
             zone_id=zone_id,
             zone=zone,
-            recordsets=record_resp)
+            groups=groups)
 
 
 @zones.route('/clone/<zone_id>', methods=['GET', 'POST'])
