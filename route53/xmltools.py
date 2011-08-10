@@ -25,5 +25,4 @@ def render_change_batch(context):
     from route53 import app
     template = app.jinja_env.get_template('xml/change_batch.xml')
     rendered_xml = template.render(context)
-    print rendered_xml
     return rendered_xml
