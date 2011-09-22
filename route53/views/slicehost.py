@@ -114,7 +114,7 @@ def import_zone(zone_id):
                         name=record_name,
                         type=record_type,
                         ttl=rcds[0].ttl,
-                        values=values,
+                        values={'values':values},
                         change_batch_id=change_batch.id)
         db.session.add(change)
         changes = [change]
